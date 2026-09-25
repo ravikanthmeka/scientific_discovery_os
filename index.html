@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Scientific Discovery OS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-effect"></div>
+    
+    <div class="app-container">
+        <header class="glass-panel">
+            <h1>Scientific Discovery OS</h1>
+            <p>Multi-Agent Autonomous Research Orchestration</p>
+        </header>
+
+        <main>
+            <section class="control-panel glass-panel">
+                <h2>Initialize Discovery Mission</h2>
+                <div class="domain-selector">
+                    <label>Select Domain:</label>
+                    <div class="domain-tags" id="domain-tags">
+                        <span class="tag active" data-domain="Nuclear">Nuclear</span>
+                        <span class="tag" data-domain="Quantum">Quantum</span>
+                        <span class="tag" data-domain="Materials">Materials</span>
+                        <span class="tag" data-domain="Biology">Biology</span>
+                        <span class="tag" data-domain="Climate">Climate</span>
+                        <span class="tag" data-domain="Mathematics">Mathematics</span>
+                        <span class="tag" data-domain="Healthcare">Healthcare</span>
+                        <span class="tag" data-domain="Energy">Energy</span>
+                        <span class="tag" data-domain="Other">Other</span>
+                    </div>
+                </div>
+                <div class="query-input">
+                    <input type="text" id="mission-query" placeholder="Enter research objective (e.g., 'Discover room-temperature superconductors')" value="Discover room-temperature superconductors">
+                    <button id="start-btn" class="glow-on-hover">Start Discovery</button>
+                </div>
+            </section>
+
+            <section class="orchestration-canvas">
+                <div class="agent-pipeline">
+                    <div class="agent-node" id="agent-literature">
+                        <div class="agent-icon">📚</div>
+                        <div class="agent-info">
+                            <h3>Literature Intelligence</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for mission...</div>
+                        </div>
+                    </div>
+                    <div class="connector">↓</div>
+                    <div class="agent-node" id="agent-domain_expert">
+                        <div class="agent-icon">🧠</div>
+                        <div class="agent-info">
+                            <h3>Domain Expert</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for data...</div>
+                        </div>
+                    </div>
+                    <div class="connector">↓</div>
+                    <div class="agent-node" id="agent-simulation">
+                        <div class="agent-icon">💻</div>
+                        <div class="agent-info">
+                            <h3>Simulation Orchestrator</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for models...</div>
+                        </div>
+                    </div>
+                    <div class="connector">↓</div>
+                    <div class="agent-node" id="agent-hypothesis">
+                        <div class="agent-icon">💡</div>
+                        <div class="agent-info">
+                            <h3>Hypothesis Generator</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for results...</div>
+                        </div>
+                    </div>
+                    <div class="connector">↓</div>
+                    <div class="agent-node" id="agent-experiment">
+                        <div class="agent-icon">🔬</div>
+                        <div class="agent-info">
+                            <h3>Experiment Planner</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for hypothesis...</div>
+                        </div>
+                    </div>
+                    <div class="connector">↓</div>
+                    <div class="agent-node" id="agent-validation">
+                        <div class="agent-icon">✅</div>
+                        <div class="agent-info">
+                            <h3>Result Validator</h3>
+                            <span class="status">Idle</span>
+                            <div class="log-output">Waiting for plans...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="knowledge-graph glass-panel">
+                    <h2>Discovery Artifacts</h2>
+                    <div id="artifact-container" class="artifact-container">
+                        <p class="empty-text">No artifacts generated yet.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "columns": [
+    {"name": "temperature", "type": "normal", "mean": 100, "std": 15},
+    {"name": "pressure", "type": "uniform", "low": 10, "high": 50},
+    {"name": "category", "type": "categorical", "values": ["A", "B", "C"], "probabilities": [0.5, 0.3, 0.2]}
+  ],
+  "rules": [
+    {"target": "stress", "formula": "temperature * 0.5 + pressure * 2.0"}
+  ],
+  "plot": {
+    "x": "temperature",
+    "y": "stress",
+    "type": "scatter",
+    "title": "Temperature vs Stress"
+  }
+}

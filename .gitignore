@@ -1,0 +1,11 @@
+*.tfvars
+arxiv_metadata.db
+.env
+qdrant_data/
+infra/.terraform/
+infra/terraform.tfstate
+venv/
+__pycache__/
+downloads/
+extracted/
+node_modules/
