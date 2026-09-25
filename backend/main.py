@@ -296,6 +296,9 @@ async def branch_mission(req: BranchRequest, db: Session = Depends(database.get_
             try:
                 payload = jwt.decode(req.token, SECRET_KEY, algorithms=[ALGORITHM])
                 user_id = payload.get("sub")
+                user = db.query(database_models.User).filter(database_models.User.id == user_id).first()
+                if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000:
+                    raise HTTPException(status_code=402, detail="Payment Required: Free token limit reached. Please upgrade to Pro.")
             except jwt.PyJWTError:
                 pass
                 
@@ -332,6 +335,15 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(databas
                 try:
                     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
                     user_id = payload.get("sub")
+                    user = db.query(database_models.User).filter(database_models.User.id == user_id).first()
+                    if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000:
+                        await websocket.send_json({
+                            "agent_id": "SYSTEM",
+                            "status": "Error",
+                            "log": "Payment Required: Free token limit reached. Please upgrade to Pro.",
+                            "artifact": ""
+                        })
+                        continue
                     # Find active session
                     active_session = db.query(database_models.Session).filter(database_models.Session.token == token).first()
                     if active_session:
