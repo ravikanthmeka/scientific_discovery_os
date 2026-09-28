@@ -108,17 +108,10 @@ class AgentManager:
                     user = self.db_session.query(database_models.User).filter_by(id=query_record.user_id).first()
                     if user:
                         billing.report_usage(user, tokens['total_tokens'], self.db_session)
-                        if user.subscription_tier == "FREE" and user.tokens_used > 1000:
-                            error_msg = f"Token limit exceeded. You have used {user.tokens_used} tokens. Please upgrade to PRO to continue."
-                            if self.websocket:
-                                await self.websocket.send_json({
-                                    "agent_id": "SYSTEM",
-                                    "status": "Error",
-                                    "log": error_msg,
-                                    "artifact": ""
-                                })
-                            raise Exception(error_msg)
+                        # We no longer throw an exception here after consumption.
+                        # The user will be blocked on their NEXT request by main.py if they exceeded the limit.
             except Exception as e:
+
                 if "Token limit exceeded" in str(e):
                     raise e
                 print(f"Failed to report usage for agent tokens: {e}")
