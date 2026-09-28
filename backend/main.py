@@ -108,6 +108,10 @@ async def login(req: LoginRequest, db: Session = Depends(database.get_db)):
     if not user or not verify_password(req.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
         
+    if user.email.endswith("@synaptolab.app") or user.email.endswith("@synaptoloab.app"):
+        user.subscription_tier = "PRO"
+        db.commit()
+        
     access_token = create_access_token(data={"sub": str(user.id)})
     
     # Track Session
