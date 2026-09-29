@@ -108,7 +108,7 @@ async def login(req: LoginRequest, db: Session = Depends(database.get_db)):
     if not user or not verify_password(req.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
         
-    if user.email.endswith("@synaptolab.app") or user.email.endswith("@synaptoloab.app"):
+    if user.email.lower().endswith("@synaptolab.app") or user.email.lower().endswith("@synaptoloab.app"):
         user.subscription_tier = "PRO"
         db.commit()
         
@@ -224,7 +224,7 @@ async def chat_endpoint(req: ChatRequest, db: Session = Depends(database.get_db)
             except Exception:
                 pass
                 
-        if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.endswith("@synaptolab.app") or user.email.endswith("@synaptoloab.app")):
+        if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.lower().endswith("@synaptolab.app") or user.email.lower().endswith("@synaptoloab.app")):
             raise HTTPException(status_code=402, detail="Payment Required: Free token limit reached. Please upgrade to Pro.")
 
         llm = ChatBedrock(
@@ -301,7 +301,7 @@ async def branch_mission(req: BranchRequest, db: Session = Depends(database.get_
                 payload = jwt.decode(req.token, SECRET_KEY, algorithms=[ALGORITHM])
                 user_id = payload.get("sub")
                 user = db.query(database_models.User).filter(database_models.User.id == user_id).first()
-                if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.endswith("@synaptolab.app") or user.email.endswith("@synaptoloab.app")):
+                if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.lower().endswith("@synaptolab.app") or user.email.lower().endswith("@synaptoloab.app")):
                     raise HTTPException(status_code=402, detail="Payment Required: Free token limit reached. Please upgrade to Pro.")
             except jwt.PyJWTError:
                 pass
@@ -340,7 +340,7 @@ async def websocket_endpoint(websocket: WebSocket, db: Session = Depends(databas
                     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
                     user_id = payload.get("sub")
                     user = db.query(database_models.User).filter(database_models.User.id == user_id).first()
-                    if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.endswith("@synaptolab.app") or user.email.endswith("@synaptoloab.app")):
+                    if user and user.subscription_tier == "FREE" and user.tokens_used >= 1000 and not (user.email.lower().endswith("@synaptolab.app") or user.email.lower().endswith("@synaptoloab.app")):
                         await websocket.send_json({
                             "agent_id": "SYSTEM",
                             "status": "Error",
