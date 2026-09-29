@@ -124,7 +124,7 @@ async def get_usage(db: Session = Depends(database.get_db), token: str = Header(
     user = get_current_user(token, db)
     
     # Seamless auto-upgrade for test accounts without requiring re-login
-    if user.email.lower().endswith("@synaptolab.app") or user.email.lower().endswith("@synaptoloab.app"):
+    if "@synaptolab.app" in user.email.lower() or "@synaptoloab.app" in user.email.lower():
         if user.subscription_tier != "PRO":
             user.subscription_tier = "PRO"
             db.commit()
