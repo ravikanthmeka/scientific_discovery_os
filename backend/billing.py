@@ -132,5 +132,5 @@ async def get_usage(db: Session = Depends(database.get_db), token: str = Header(
     return {
         "tier": user.subscription_tier,
         "tokens_used": user.tokens_used,
-        "limit": 1000 if user.subscription_tier == "FREE" else "Unlimited"
+        "limit": 10000 if user.subscription_tier == "FREE" else "Unlimited"
     }
