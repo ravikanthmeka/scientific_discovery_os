@@ -19,7 +19,7 @@ resource "aws_ecs_task_definition" "backend" {
       hostPort      = 8000
     }]
     environment = [
-      { name = "DATABASE_URL", value = "postgresql://${module.db.db_instance_username}:${var.db_password}@${module.db.db_instance_endpoint}/${module.db.db_instance_name}" },
+      { name = "DATABASE_URL", value = "postgresql+psycopg2://${module.db.db_instance_username}:${var.db_password}@${module.db.db_instance_endpoint}/${module.db.db_instance_name}" },
       { name = "NEO4J_URI", value = var.neo4j_uri },
       { name = "NEO4J_USER", value = var.neo4j_user },
       { name = "NEO4J_PASSWORD", value = var.neo4j_password },
